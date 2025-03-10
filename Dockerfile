@@ -7,6 +7,6 @@ RUN pipx install poetry
 COPY . /app
 WORKDIR /app
 
-RUN poetry install --without=dev --no-interaction
+RUN /root/.local/bin/poetry install --without=dev --no-interaction
 
 ENTRYPOINT ["poetry run darktable-auto-exporter"]
