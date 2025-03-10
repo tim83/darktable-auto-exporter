@@ -1,7 +1,8 @@
 FROM debian:bookworm-20250224
 
 RUN apt-get update
-RUN apt-get install -y darktable python3-poetry
+RUN apt-get install -y darktable python3-pipx
+RUN pipx install poetry
 
 COPY . /app
 WORKDIR /app
