@@ -58,8 +58,7 @@ def has_xmp_changed(xmp_file: Path) -> bool:
     return True
 
 def has_been_selected(xmp_file: Path) -> bool:
-    print(read_xmp_file(xmp_file)[0],read_xmp_file(xmp_file)[0][0], read_xmp_file(xmp_file)[0][0].attrib)
-    return read_xmp_file(xmp_file)[0][0].attrib["{http://ns.adobe.com/xap/1.0/}:Rating"] != "-1"
+    return read_xmp_file(xmp_file)[0][0].attrib['{http://ns.adobe.com/xap/1.0/}Rating'] != "-1"
 
 def get_image_file(xmp_file: Path) -> Path:
     return xmp_file.parent / read_xmp_file(xmp_file)[0][0].attrib['{http://ns.adobe.com/xap/1.0/mm/}DerivedFrom']
