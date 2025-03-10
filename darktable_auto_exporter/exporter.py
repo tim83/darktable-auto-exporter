@@ -12,7 +12,13 @@ def get_export_file(xmp_file: Path) -> Path:
 def export(*, force: bool = False) -> None:
     for xmp_file in xmp_manager.get_xmp_files():
         export_file = get_export_file(xmp_file)
-        if force or xmp_manager.has_xmp_changed(xmp_file):
+        if not xmp_manager.has_been_selected(xmp_file):
+            xmp_manager.record_discard(xmp_file)
+            image_file=xmp_manager.get_image_file(xmp_file)
+            if image_file.exists():
+                image_file.unlink()
+            print(f"Skipping {xmp_file}, not selected.")
+        elif force or xmp_manager.has_xmp_changed(xmp_file):
             xmp_manager.record_export(xmp_file, export_file)
             print(f"Exporting {xmp_file} to {export_file}")
             subprocess.run(
