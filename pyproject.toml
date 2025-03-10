@@ -11,6 +11,10 @@ dependencies = [
     "python-dotenv (>=1.0.1,<2.0.0)"
 ]
 
+[project.scripts]
+darktable-auto-exporter = 'darktable_auto_exporter.__main__:main'
+
+
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
