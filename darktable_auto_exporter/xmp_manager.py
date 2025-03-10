@@ -18,13 +18,11 @@ def hash_xmp_file(xmp_file: Path) -> str:
     return hashlib.sha256(xmp_file.read_bytes()).hexdigest()
 
 
-def ensure_export_log_exists() -> None:
+def record_export(xmp_file: Path, export_file: Path) -> None:
     if not settings.EXPORT_LOG_FILE.exists():
         with settings.EXPORT_LOG_FILE.open(mode="w") as f:
             f.write("SIDE_CAR_FILE,MODIFICATION_TIME,SHA256,EXPORT_FILE\n")
 
-
-def record_export(xmp_file: Path, export_file: Path) -> None:
     with settings.EXPORT_LOG_FILE.open("a") as f:
         f.write(
             f"{xmp_file},{xmp_file.lstat().st_mtime},{hash_xmp_file(xmp_file)},{export_file}\n"
@@ -32,6 +30,8 @@ def record_export(xmp_file: Path, export_file: Path) -> None:
 
 
 def has_xmp_changed(xmp_file: Path) -> bool:
+    if not settings.EXPORT_LOG_FILE.exists():
+        return True
     with settings.EXPORT_LOG_FILE.open("r") as f:
         for line in f:
             if line.startswith(f"{xmp_file},"):
