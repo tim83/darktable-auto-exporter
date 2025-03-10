@@ -9,4 +9,4 @@ WORKDIR /app
 
 RUN /root/.local/bin/poetry install --without=dev --no-interaction
 
-ENTRYPOINT ["/root/.local/poetry run darktable-auto-exporter"]
+ENTRYPOINT ["/root/.local/poetry", "run" ,"darktable-auto-exporter"]
