@@ -1,4 +1,4 @@
-FROM registry.opensuse.org/opensuse/tumbleweed:20250307
+FROM registry.opensuse.org/opensuse/tumbleweed:20250623
 
 RUN zypper refresh
 RUN zypper install -y darktable python3-poetry
